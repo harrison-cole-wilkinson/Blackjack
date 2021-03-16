@@ -1,0 +1,62 @@
+from Deck import Deck
+from Player import Player
+from Dealer import Dealer
+
+Players = []
+still_more_players = True
+game_is_going = True
+while(still_more_players):
+    name = input("What's your name?\n")
+    Players.append(Player(name,[],0))
+    if(input("Are there more players? y//n\n")=='n'):
+        still_more_players = False
+
+while game_is_going:
+    Cole = Deck()
+    Cole.shuffle()
+    Deal = Dealer([],0)
+
+    Deal.add_to_hand(Cole.get_Card())
+    print("Dealer's hand is " + Deal.get_hand()[-1].prettify())
+
+
+    for player in Players:
+
+        print("\nHello " + player.get_Name() + "\n")
+
+        player.add_to_hand(Cole.get_Card())
+
+        player.add_to_hand(Cole.get_Card())
+
+        print(player.get_hand_value())
+
+
+        print("You're hand is :" + str(player.get_nice_hand()))
+        while(player.get_hand_value()<21):
+            if(input("Would you like to hit? y//n\n")=='y'):
+                player.add_to_hand(Cole.get_Card())
+                print(player.get_Name() +"'s hand value is now " + str(player.get_hand_value()) + '\n')
+            else:
+                break
+
+        if player.get_hand_value()>21:
+            print(player.get_Name() + " went over!")
+
+
+        print(player.get_Name() +"'s final hand is " + str(player.get_nice_hand()) + '\n')
+
+    while(Deal.get_hand_value()<17):
+            print("Dealer drew ::")
+            Deal.add_to_hand(Cole.get_Card())
+            print("Dealer's hand value is now " + str(Deal.get_hand_value()) + '\n')
+
+
+    for player in Players:
+        if Deal.get_hand_value()>21 or (player.get_hand_value()>Deal.get_hand_value() and player.get_hand_value()<21):
+            print(player.get_Name() + " wins against the Dealer!")
+        elif Deal.get_hand_value()==player.get_hand_value():
+            print(player.get_Name() + " draws with the Dealer!")
+
+        else:
+            print("Dealer wins agaisnt " + player.get_Name())
+    game_is_going = False
