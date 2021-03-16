@@ -1,0 +1,18 @@
+class Dealer:
+    def __init__(self,hand,value):
+        self.hand = hand
+        self.value = value
+
+    def add_to_hand(self,card):
+        self.hand.append(card)
+        self.value += card.get_d_value()
+        print(card.get_face() + " of " + card.get_suit())
+    def get_hand(self):
+        return self.hand
+    def get_nice_hand(self):
+        h = []
+        for card in self.hand:
+            h.append(card.get_face() + ' of ' + card.get_suit())
+        return h
+    def get_hand_value(self):
+        return self.value
