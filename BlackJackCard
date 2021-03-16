@@ -1,0 +1,24 @@
+from Card import Card
+class BlackjackCard(Card):
+    count = 0
+    def get_p_value(self):
+        if "N" in self.get_face() or "J" in self.get_face():
+            return 10
+        elif "C" in self.get_face():
+            if input("11 or 1?:: ")=="1":
+                return 1
+            else:
+                return 11
+        else:
+            return int(self.get_face())
+    def get_d_value(self):
+        if "N" in self.get_face() or "J" in self.get_face():
+            return 10
+        elif "C" in self.get_face():
+            if self.count==0:
+                self.count+=1
+                return 11
+            else:
+                return 1
+        else:
+            return int(self.get_face())
